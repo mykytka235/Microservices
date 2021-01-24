@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: second-service
+  data:
+    mongodb:
+      host: my-mongodb
+      port: 27017
+      database: UsersDB
+      uri: mongodb://my-mongodb:27017/UsersDB
+thirdclient:
+  url: http://third-service:8083
+server:
+  port: 8082

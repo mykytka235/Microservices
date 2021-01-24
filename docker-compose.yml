@@ -1,0 +1,31 @@
+version: '3'
+services:
+  my-mongodb:
+    image: mongo
+    container_name: docker-mongo
+    ports:
+      - 27017:27017
+    restart: always
+  first-service:
+    image: springio/first-microservice
+    container_name: first-service
+    ports:
+      - 8081:8081
+    links:
+      - my-mongodb
+      - second-service
+  second-service:
+    image: springio/second-microservice
+    container_name: second-service
+    ports:
+      - 8082:8082
+    links:
+      - my-mongodb
+      - third-service
+  third-service:
+    image: springio/third-microservice
+    container_name: third-sevice
+    ports:
+      - 8083:8083
+    links:
+      - my-mongodb

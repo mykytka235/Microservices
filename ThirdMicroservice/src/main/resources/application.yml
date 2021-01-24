@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: third-service
+  data:
+    mongodb:
+      host: my-mongodb
+      port: 27017
+      database: UsersDB
+      uri: mongodb://my-mongodb:27017/UsersDB
+server:
+  port: 8083
