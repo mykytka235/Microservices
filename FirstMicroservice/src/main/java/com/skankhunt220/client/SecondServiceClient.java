@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.skankhunt220.api.Dto.UserDto;
+import com.skankhunt220.entity.User;
 
 @FeignClient(name = "${feign.name}", url = "${feign.url}")
-public interface FirstFeignClient {
+public interface SecondServiceClient {
 	@PostMapping("/api/users")
-	public UserDto createUser(@RequestBody UserDto userDto);
+	public User create(@RequestBody User user);
 	@PutMapping("/api/users/{id}")
-	public UserDto update(@PathVariable("id") String id, @RequestBody UserDto userDto);
+	public User update(@PathVariable("id") String id, @RequestBody User user);
 }

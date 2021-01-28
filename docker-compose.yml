@@ -5,27 +5,33 @@ services:
     container_name: docker-mongo
     ports:
       - 27017:27017
+    networks:
+      - my-network
     restart: always
   first-service:
     image: springio/first-microservice
     container_name: first-service
     ports:
       - 8081:8081
-    links:
+    depends_on:
       - my-mongodb
       - second-service
+    networks:
+      - my-network
   second-service:
     image: springio/second-microservice
     container_name: second-service
-    ports:
-      - 8082:8082
-    links:
+    depends_on:
       - my-mongodb
       - third-service
+    networks:
+      - my-network
   third-service:
     image: springio/third-microservice
     container_name: third-sevice
-    ports:
-      - 8083:8083
-    links:
+    depends_on:
       - my-mongodb
+    networks:
+      - my-network
+networks:
+  my-network:

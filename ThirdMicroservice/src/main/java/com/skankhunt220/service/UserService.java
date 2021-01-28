@@ -16,16 +16,7 @@ public class UserService {
 	public User create(User user) {
 		return userRepository.save(user);
 	}
-
-	public User read(String userId) {
-		return userRepository.findById(userId).get();
-	}
-
-	public User update(User user) {
-		return userRepository.save(user);
-	}
-
-	public void delete(String userId) {
-		userRepository.deleteById(userId);
+	public User update(String id, User user) {
+		return userRepository.queryUpdateLastName(id, user.getLastName());
 	}
 }
