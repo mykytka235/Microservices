@@ -7,7 +7,9 @@
 /.idea/
 
 gradlew
+lombok.config
 gradlew.bat
+HELP.md
 .classpath
 .gitattributes
 .project
