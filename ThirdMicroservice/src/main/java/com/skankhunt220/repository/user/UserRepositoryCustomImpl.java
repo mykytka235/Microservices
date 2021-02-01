@@ -17,5 +17,5 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
 		Query query = new Query(Criteria.where("id").is(id));
 		mongoTemplate.findAndModify(query, Update.update("lastName", lastName), User.class);
 		return mongoTemplate.findById(id, User.class);
-	}	
+	}
 }

@@ -1,6 +1,7 @@
 package com.skankhunt220.api.controller;
 
-import static com.skankhunt220.api.transformer.UserTransformer.transform;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skankhunt220.api.Dto.UserDto;
+import com.skankhunt220.api.Dto.CurrentServiceUserDto;
+import com.skankhunt220.api.transformer.FirstServiceTransformer;
 import com.skankhunt220.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,25 +22,36 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
-	private final UserService userService;
-	
-	@PostMapping
-	public UserDto create(@RequestBody UserDto userDto) {
-		return transform(userService.create(transform(userDto)));
-	}
+    private final UserService userService;
 
-	@GetMapping("/{id}")
-	public UserDto read(@PathVariable("id") String id) {
-		return transform(userService.read(id));
-	}
+    @PostMapping
+    public CurrentServiceUserDto create(@RequestBody CurrentServiceUserDto userDto) {
+        return FirstServiceTransformer
+                .transformIntoCurrentServiceDto((userService.create(FirstServiceTransformer.transformIntoUser(userDto))));
+    }
 
-	@PutMapping("/{id}")
-	public UserDto update(@PathVariable("id") String id, @RequestBody UserDto userDto) {	
-	    return transform(userService.update(id, transform(userDto)));
-	}
+    @GetMapping("/{id}")
+    public CurrentServiceUserDto read(@PathVariable("id") String id) {
+        return FirstServiceTransformer.transformIntoCurrentServiceDto(userService.read(id));
+    }
 
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") String id) {
-		userService.delete(id);
-	}
+    @PutMapping("/{id}")
+    public CurrentServiceUserDto update(@PathVariable("id") String id, @RequestBody CurrentServiceUserDto userDto) {
+        return FirstServiceTransformer.transformIntoCurrentServiceDto(userService.update(id, FirstServiceTransformer.transformIntoUser((userDto))));
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") String id) {
+        userService.delete(id);
+    }
+    
+    @GetMapping("/allUsers")
+    public List<CurrentServiceUserDto> getAllUsers(){
+        List<CurrentServiceUserDto> listDto = new ArrayList<CurrentServiceUserDto>();
+        userService.getAllUsers().forEach((user) -> {
+            listDto.add(FirstServiceTransformer.transformIntoCurrentServiceDto(user));
+        });       
+        
+        return listDto;
+    }
 }

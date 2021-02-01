@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skankhunt220.entity.User;
+import com.skankhunt220.api.Dto.CurrentServiceUserDto;
+import com.skankhunt220.api.transformer.UserTransformer;
 import com.skankhunt220.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,12 @@ public class UserController {
 	private final UserService userService;
 	
 	@PostMapping
-	public User create(@RequestBody User user) {
-		return userService.create(user);
+	public CurrentServiceUserDto create(@RequestBody CurrentServiceUserDto dto) {
+		return UserTransformer.transformIntoCurrentServiceDto(userService.create(UserTransformer.transformIntoUser(dto)));
 	}
 	
 	@PutMapping("/{id}")
-	public User update(@PathVariable("id") String id, @RequestBody User user) {
-		return userService.update(id, user);
+	public CurrentServiceUserDto update(@PathVariable("id") String id, @RequestBody CurrentServiceUserDto dto) {
+		return UserTransformer.transformIntoCurrentServiceDto(userService.update(id, UserTransformer.transformIntoUser(dto)));
 	}
 }

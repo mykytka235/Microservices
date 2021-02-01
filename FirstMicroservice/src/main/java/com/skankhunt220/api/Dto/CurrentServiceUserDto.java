@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class CurrentServiceUserDto {
 	private String id;
+	private String firstName;
 	private String middleName;
-	private String lastName;	
+	private String lastName;
 }

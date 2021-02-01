@@ -1,7 +1,4 @@
-package com.skankhunt220.entity;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.skankhunt220.api.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "users")
-public class User {
-	@Id 
+public class CurrentServiceUserDto {
 	private String id;
+	private String middleName;
 	private String lastName;	
 }

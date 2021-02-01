@@ -1,4 +1,4 @@
-package com.skankhunt220.api.Dto;
+package com.skankhunt220.service.third.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-	private String id;
-	private String lastName;	
+public class ThirdServiceDto {
+    private String id;
+    private String lastName;    
 }

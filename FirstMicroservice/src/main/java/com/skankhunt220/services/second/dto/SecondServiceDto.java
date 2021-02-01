@@ -1,4 +1,4 @@
-package com.skankhunt220.api.Dto;
+package com.skankhunt220.services.second.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class SecondServiceDto {
 	private String id;
-	private String firstName;
 	private String middleName;
 	private String lastName;
 }

@@ -18,4 +18,4 @@ public class User {
 	private String id;
 	private String middleName;
 	private String lastName;
-} 
+}
