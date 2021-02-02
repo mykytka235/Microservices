@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: first-client
+  data:
+    mongodb:
+      host: my-mongodb
+      port: 27017
+      database: UsersDBtest
+      uri: mongodb://localhost:27017/UsersDBtest
+server:
+  port: 8081
+feign:
+  url: http://localhost:8082
+  name: second-service

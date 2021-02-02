@@ -47,7 +47,7 @@ public class UserController {
     
     @GetMapping("/allUsers")
     public List<CurrentServiceUserDto> getAllUsers(){
-        List<CurrentServiceUserDto> listDto = new ArrayList<CurrentServiceUserDto>();
+        List<CurrentServiceUserDto> listDto = new ArrayList<>();
         userService.getAllUsers().forEach((user) -> {
             listDto.add(FirstServiceTransformer.transformIntoCurrentServiceDto(user));
         });       

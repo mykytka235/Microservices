@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: third-service-test
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: UsersDBtest
+      uri: mongodb://localhost:27017/UsersDBtest
+server:
+  port: 8083
