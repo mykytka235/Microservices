@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UserTest {
     
     @Test
-    void UserCretionTest() {
+    void UserCreationTest() {
         User user = new User("2132", "1", "2", "3");
         Assertions.assertThat(user).extracting("firstName", "middleName", "lastName")
                                     .contains("1", "2", "3");

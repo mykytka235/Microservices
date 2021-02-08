@@ -25,21 +25,12 @@ public class UserControllerIntTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
-
-    private final String USER_ID = "6017f35ee836b9276b0f5869";
-
-    @Test
-    public void postMethodTest() throws Exception {
-        User user = User.builder().firstName("post").middleName("method").lastName("test").build();
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/api/users/")
-                .contentType("application/json").content(objectMapper.writeValueAsString(user)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk());
-    }
+    private final String url = "/api/users/";
+    private final String USER_ID = "601921e405f07450c8bbc837";
 
     @Test
     public void getMethodTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/users/" + "6018fdd9a5d643439dd8e648")
+        mockMvc.perform(MockMvcRequestBuilders.get(url + USER_ID)
                     .contentType("application/json"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(status().isOk());
@@ -47,7 +38,7 @@ public class UserControllerIntTest {
 
     @Test
     public void getAllUsersMethodTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/users/allUsers")
+        mockMvc.perform(MockMvcRequestBuilders.get(url + "allUsers")
                 .contentType("application/json"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
@@ -55,7 +46,7 @@ public class UserControllerIntTest {
 
     @Test
     public void getUserFailTest() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/users/")
+        mockMvc.perform(MockMvcRequestBuilders.get(url)
                 .contentType("application/json"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is4xxClientError());

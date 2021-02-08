@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.skankhunt220.entity.User;
 import com.skankhunt220.repository.user.UserRepository;
+import org.springframework.util.Assert;
 
 @SpringBootTest
 class UserServiceTest {
@@ -26,16 +27,13 @@ class UserServiceTest {
     void createUser() {
         User user = User.builder().lastName("testGuy").build();
 
-        Mockito.doReturn(new User(new ObjectId().toString(), user.getLastName()))
+        Mockito.doReturn(User.builder().id("1234").lastName(user.getLastName()).build())
                 .when(userRepository)
                 .save(user);
 
         User createdByService = userService.create(user);
-
         assertNotEquals(user, createdByService);
 
-        Assertions.assertThat(user.getLastName()).isEqualTo("testGuy");
-        Assertions.assertThat(user.getId()).isNotEqualTo(createdByService.getId());
         Mockito.verify(userRepository, Mockito.times(1)).save(user);
     }
 
@@ -43,7 +41,7 @@ class UserServiceTest {
     void updateUser() {
         User newUser = new User("1234", "testGuy");
 
-        Mockito.doReturn(new User("1234", newUser.getLastName()))
+        Mockito.doReturn(newUser)
                 .when(userRepository)
                 .queryUpdateLastName(newUser.getId(), newUser.getLastName());
 
@@ -56,15 +54,15 @@ class UserServiceTest {
     }
 
     @Test
-    void updateUserFail() {
+    void updateUserFailTest() {
         User newUser = new User("1234", "testGuy");
 
         Mockito.doThrow(new NullPointerException())
                 .when(userRepository)
                 .queryUpdateLastName(newUser.getId(), newUser.getLastName());
+
         assertThrows(NullPointerException.class, () -> {
             userService.update(newUser.getId(), newUser);
         });
-        Mockito.verify(userRepository, Mockito.times(1)).queryUpdateLastName(newUser.getId(), newUser.getLastName());
     }
 }

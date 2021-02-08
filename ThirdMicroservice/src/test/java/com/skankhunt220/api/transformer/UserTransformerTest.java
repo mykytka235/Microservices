@@ -13,13 +13,13 @@ class UserTransformerTest {
 
     @Test
     void transformIntoUserTest() {
-        User user = UserTransformer.transformIntoUser(new CurrentServiceUserDto());
-        assertEquals(User.class, user.getClass());
+        CurrentServiceUserDto dto = new CurrentServiceUserDto("123", "transformerTest");
+        assertEquals("transformerTest", UserTransformer.transformIntoUser(dto).getLastName());
     }
 
     @Test
-    void transformIntoCurrentServiceUserDto() {
-        CurrentServiceUserDto dto = UserTransformer.transformIntoCurrenServiceDto(new User());
-        assertEquals(CurrentServiceUserDto.class, dto.getClass());
+    void transformIntoCurrentServiceUserDtoTest() {
+        User user = new User("123", "transformerTest");
+        assertEquals("transformerTest", UserTransformer.transformIntoCurrenServiceDto(user).getLastName());
     }
 }

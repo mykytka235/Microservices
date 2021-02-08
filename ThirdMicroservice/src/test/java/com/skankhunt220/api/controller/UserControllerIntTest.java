@@ -22,11 +22,13 @@ class UserControllerIntTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
+    private final String url = "/api/users/";
+    private final String USER_ID = "601921e405f07450c8bbc837";
 
     @Test
     void createUserTest() throws Exception {
         User user = User.builder().lastName("test").build();
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/api/users/")
+        mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType("application/json").content(objectMapper.writeValueAsString(user)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
@@ -34,7 +36,7 @@ class UserControllerIntTest {
     @Test
     void updateUserTest() throws Exception{
         User user = User.builder().lastName("test2").build();
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/api/users/" + "6018fdd9a5d643439dd8e648")
+        mockMvc.perform(MockMvcRequestBuilders.put(url + USER_ID)
                 .contentType("application/json").content(objectMapper.writeValueAsString(user)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
